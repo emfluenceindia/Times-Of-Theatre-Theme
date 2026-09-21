@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times of Theatre - Professional Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #D4AF37;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            max-width: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-icons a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #D4AF37;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            padding: 0;
+        }
+
+        .social-icons a svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+
+        .social-icons a:hover {
+            background: #F0E68C;
+        }
+
+        .social-icons a:hover svg {
+            color: #2a2a2a;
+        }
+
+        /* Navigation Section */
+        .nav-section {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        nav {
+            display: flex;
+            gap: 0;
+            font-size: 0.9rem;
+            list-style: none;
+            flex: 1;
+            align-items: center;
+            position: relative;
+        }
+
+        nav > li {
+            position: relative;
+            border-right: 1px solid #eee;
+            flex: 1;
+            text-align: center;
+        }
+
+        nav > li:last-child {
+            border-right: none;
+        }
+
+        nav a {
+            color: #4a4a4a;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: block;
+            padding: 0.8rem 0.5rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        nav a:hover {
+            color: #D4AF37;
+            background: #f9f9f9;
+        }
+
+        /* Dropdown menus */
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: 2px solid #D4AF37;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            list-style: none;
+            z-index: 1000;
+        }
+
+        nav li:hover > .nav-dropdown {
+            display: block;
+        }
+
+        .nav-dropdown li {
+            border: none;
+            text-align: left;
+        }
+
+        .nav-dropdown a {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: normal;
+            text-align: left;
+            white-space: normal;
+        }
+
+        .nav-dropdown li:last-child a {
+            border-bottom: none;
+        }
+
+        .nav-dropdown a:hover {
+            background: #fafafa;
+            padding-left: 1.2rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search-box {
+            background: #f5f5f5;
+            border: 1px solid #D4AF37;
+            padding: 0.6rem 1rem;
+            border-radius: 3px;
+            color: #333;
+            width: 250px;
+            font-size: 0.9rem;
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+
+        /* Main Container */
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero/Carousel Section */
+        .hero-carousel {
+            background: #2a2a2a;
+            border: 3px solid #D4AF37;
+            border-radius: 0;
+            height: 450px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .carousel-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 100%);
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            color: #f5f5f5;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #d0d0d0;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            background: #D4AF37;
+            color: #2a2a2a;
+            padding: 0.8rem 2.5rem;
+            border: none;
+            border-radius: 3px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #F0E68C;
+            color: #1a1a1a;
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .carousel-dot.active {
+            background: #D4AF37;
+            border-color: white;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 2rem;
+            padding: 0;
+        }
+
+        .action-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 2.5rem 2rem;
+            border-radius: 3px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .action-card:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F0E68C 100%);
+            margin: 0 auto 1.5rem;
+            border-radius: 3px;
+        }
+
+        .action-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2a2a2a;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+            padding: 0.6rem 1.5rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary:hover {
+            background: #D4AF37;
+            color: #2a2a2a;
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 3rem 2.5rem;
+            margin: 3rem 2rem;
+            border-radius: 3px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            color: #2a2a2a;
+            border-bottom: 3px solid #D4AF37;
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .about-text {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .learn-more {
+            color: #D4AF37;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .learn-more:hover {
+            color: #F0E68C;
+        }
+
+        /* Featured Content */
+        .featured-section {
+            margin: 3rem 2rem;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .featured-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .featured-card:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Categories Grid */
+        .categories-section {
+            margin: 3rem 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-radius: 3px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            border-color: #D4AF37;
+            background: #fafafa;
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #D4AF37 0%, #F0E68C 100%);
+            margin: 0 auto 1.5rem;
+            border-radius: 3px;
+        }
+
+        .category-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .category-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* News Section */
+        .news-section {
+            margin: 3rem 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .news-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            background: #2a2a2a;
+            border-top: 3px solid #D4AF37;
+            margin-top: 4rem;
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #f5f5f5;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #D4AF37;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            border-top: 1px solid #444;
+            padding-top: 2rem;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .view-all-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: #D4AF37;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .view-all-link:hover {
+            color: #F0E68C;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .featured-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav > li {
+                font-size: 0.8rem;
+            }
+
+            nav a {
+                padding: 0.8rem 0.3rem;
+            }
+
+            .quick-actions {
+                margin: 2rem 1rem;
+            }
+
+            .about-section,
+            .featured-section,
+            .categories-section,
+            .news-section {
+                margin: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            .social-icons {
+                display: none;
+            }
+
+            .search-section {
+                display: none;
+            }
+
+            .nav-section {
+                justify-content: space-between;
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            nav {
+                position: static;
+                width: 100%;
+                flex-direction: column;
+                border-top: 2px solid #D4AF37;
+                background: white;
+                max-height: none;
+                overflow: visible;
+                z-index: 999;
+            }
+
+            nav > li {
+                border: none;
+                border-bottom: 1px solid #eee;
+                text-align: left;
+                flex: none;
+                width: 100%;
+                position: relative;
+            }
+
+            nav a {
+                padding: 1rem 1.5rem;
+                text-align: left;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav > li > a::after {
+                content: '▼';
+                font-size: 0.7rem;
+                transition: transform 0.3s;
+                transform-origin: center;
+            }
+
+            nav > li > a.has-submenu::after {
+                content: '▼';
+            }
+
+            /* Submenu styling for mobile */
+            .nav-dropdown {
+                position: static;
+                display: none;
+                border: none;
+                border-top: 1px solid #eee;
+                border-left: 3px solid #D4AF37;
+                box-shadow: none;
+                min-width: auto;
+                background: #f9f9f9;
+                max-height: none;
+            }
+
+            .nav-dropdown li {
+                border: none;
+            }
+
+            .nav-dropdown a {
+                padding: 0.8rem 2rem;
+                border-bottom: none;
+            }
+
+            .nav-dropdown a:hover {
+                background: #f0f0f0;
+                padding-left: 2.3rem;
+            }
+
+            /* Show submenu when parent is expanded */
+            nav > li.expanded > .nav-dropdown {
+                display: block;
+            }
+
+            nav > li.expanded > a::after {
+                transform: rotate(180deg);
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .featured-grid,
+            .categories-grid,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+                margin: 1rem;
+            }
+
+            .hero-carousel {
+                height: 350px;
+                margin-top: 0;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .logo-section {
+                padding: 0.75rem 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .container {
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                max-height: 40px;
+            }
+
+            .hero-carousel {
+                height: 280px;
+            }
+
+            .hero-title {
+                font-size: 1.4rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Section -->
+    <div class="logo-section">
+        <div class="logo">
+            <img src="data:image/png;base64,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" alt="TOTMAINE Logo" />
+        </div>
+        <div class="social-icons">
+            <a href="#" title="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5c-.563-.074-2.326-.278-4.639-.278-4.506 0-7.578 2.85-7.578 8.008v2.27z"/>
+                </svg>
+            </a>
+            <a href="#" title="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                    <path d="M5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                </svg>
+            </a>
+            <a href="#" title="YouTube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+            <a href="#" title="Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75-2.35 7-7 7-11.65a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation Section -->
+    <div class="nav-section">
+        <nav id="mainNav">
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">About TOT</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">Who We Are</a></li>
+                    <li><a href="#">Our Vision</a></li>
+                    <li><a href="#">Our Work</a></li>
+                    <li><a href="#">Our Mentors</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Preservation & Archive</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">Audio Theatre Archive</a></li>
+                    <li><a href="#">Theatre-related Information</a></li>
+                    <li><a href="#">Original Audio Programmes</a></li>
+                    <li><a href="#">Explore the Archive</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">TOT School of Drama</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">About the School</a></li>
+                    <li><a href="#">Audio Theatre</a></li>
+                    <li><a href="#">Proscenium Theatre</a></li>
+                    <li><a href="#">Courses & Programmes</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Faculty & Mentors</a></li>
+                    <li><a href="#">Student Performances</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">The TOT Space</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">About the Space</a></li>
+                    <li><a href="#">Facilities</a></li>
+                    <li><a href="#">Seating & Capacity</a></li>
+                    <li><a href="#">Performances & Events</a></li>
+                    <li><a href="#">Enquire / Book the Space</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">The TOT Studio</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">About the Studio</a></li>
+                    <li><a href="#">Audio Recording</a></li>
+                    <li><a href="#">Dubbing</a></li>
+                    <li><a href="#">Equipment & Facilities</a></li>
+                    <li><a href="#">Studio Enquiry</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Workshops</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">Upcoming Workshops</a></li>
+                    <li><a href="#">Past Workshops</a></li>
+                    <li><a href="#">Workshop Details</a></li>
+                    <li><a href="#">Register / Enquire</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">TOT on YouTube</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">TOT Originals</a></li>
+                    <li><a href="#">TOT Students & Club Members</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Gallery</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">Workshop Gallery</a></li>
+                    <li><a href="#">Programme Gallery</a></li>
+                    <li><a href="#">Performance Gallery</a></li>
+                    <li><a href="#">Behind the Scenes</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+                <ul class="nav-dropdown">
+                    <li><a href="#">Contact Information</a></li>
+                    <li><a href="#">Location & Map</a></li>
+                    <li><a href="#">General Enquiry</a></li>
+                    <li><a href="#">Course Enquiry</a></li>
+                    <li><a href="#">Studio Enquiry</a></li>
+                    <li><a href="#">Space Booking</a></li>
+                </ul>
+            </li>
+        </nav>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <input type="text" class="search-box" placeholder="Search...">
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Carousel/Hero Section -->
+        <section class="hero-carousel">
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Featured Performance</h1>
+                        <p class="hero-subtitle">Experience the art of theatre, music, and storytelling</p>
+                        <button class="btn-primary">Explore Now</button>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Audio Theatre Archive</h1>
+                        <p class="hero-subtitle">Discover decades of extraordinary audio drama productions</p>
+                        <button class="btn-primary">Browse Archive</button>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Upcoming Workshops</h1>
+                        <p class="hero-subtitle">Learn from industry experts and master craftspeople</p>
+                        <button class="btn-primary">View Schedule</button>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <div class="carousel-dot active" data-slide="0"></div>
+                <div class="carousel-dot" data-slide="1"></div>
+                <div class="carousel-dot" data-slide="2"></div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="action-card">
+                <div class="action-icon"></div>
+                <h3 class="action-title">School of Drama</h3>
+                <button class="btn-secondary">Apply Now</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon"></div>
+                <h3 class="action-title">Book the Space</h3>
+                <button class="btn-secondary">View Facilities</button>
+            </div>
+            <div class="action-card">
+                <div class="action-icon"></div>
+                <h3 class="action-title">Studio Services</h3>
+                <button class="btn-secondary">Get Quote</button>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2 class="section-title">About Times of Theatre</h2>
+            <p class="about-text">
+                Times of Theatre is a premier cultural institution dedicated to preserving, celebrating, and advancing the art of theatre, audio drama, and performing arts. Our mission encompasses education, archival preservation, and the creation of spaces where artists and audiences unite.
+            </p>
+            <a href="#" class="learn-more">Learn More About Our Mission →</a>
+        </section>
+
+        <!-- Featured Content -->
+        <section class="featured-section">
+            <h2 class="section-title">Upcoming Programs</h2>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h4 class="card-title">Performance Title</h4>
+                        <p class="card-meta">September 2026</p>
+                        <p class="card-description">Brief description of the performance or event</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h4 class="card-title">Workshop Series</h4>
+                        <p class="card-meta">October 2026</p>
+                        <p class="card-description">Learn from master instructors in this intensive workshop</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h4 class="card-title">Archive Release</h4>
+                        <p class="card-meta">New Release</p>
+                        <p class="card-description">Newly digitized audio theatre content now available</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image"></div>
+                    <div class="card-content">
+                        <h4 class="card-title">Student Showcase</h4>
+                        <p class="card-meta">December 2026</p>
+                        <p class="card-description">See our talented students in action</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="view-all-link">View All Programs →</a>
+        </section>
+
+        <!-- Categories Grid -->
+        <section class="categories-section">
+            <h2 class="section-title">Explore Content</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">Theatre</h3>
+                    <p class="category-desc">Performances, productions, and dramatic works</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">Audio Theatre Archive</h3>
+                    <p class="category-desc">Historical and contemporary audio productions</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">School of Drama</h3>
+                    <p class="category-desc">Education and training programs</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">The TOT Space</h3>
+                    <p class="category-desc">Venue rentals and facilities</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">The TOT Studio</h3>
+                    <p class="category-desc">Recording and technical services</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">Workshops</h3>
+                    <p class="category-desc">Specialized training and seminars</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">TOT on YouTube</h3>
+                    <p class="category-desc">Video content and digital media</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">Gallery</h3>
+                    <p class="category-desc">Photo collections and visual documentation</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"></div>
+                    <h3 class="category-name">Contact</h3>
+                    <p class="category-desc">Get in touch with our team</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section class="news-section">
+            <h2 class="section-title">Latest News</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-thumbnail"></div>
+                    <div class="news-content">
+                        <p class="news-date">September 21, 2026</p>
+                        <h4 class="news-title">New Archive Collection Now Available</h4>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-thumbnail"></div>
+                    <div class="news-content">
+                        <p class="news-date">September 15, 2026</p>
+                        <h4 class="news-title">Spring Season Performances Announced</h4>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-thumbnail"></div>
+                    <div class="news-content">
+                        <p class="news-date">September 10, 2026</p>
+                        <h4 class="news-title">Workshop Registration Opens</h4>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="view-all-link">View All News →</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><a href="#">Address & Map</a></li>
+                    <li><a href="#">Phone</a></li>
+                    <li><a href="#">Email</a></li>
+                    <li><a href="#">Hours</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p style="color: #b0b0b0; margin-bottom: 1rem; font-size: 0.95rem;">Subscribe for updates</p>
+                <input type="email" placeholder="Your email" style="background: #3a3a3a; border: 1px solid #555; padding: 0.7rem; color: #f5f5f5; width: 100%; border-radius: 2px; margin-bottom: 0.8rem;">
+                <button class="btn-primary" style="width: 100%;">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Times of Theatre. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu accordion functionality
+        const navItems = document.querySelectorAll('#mainNav > li');
+
+        navItems.forEach(item => {
+            const link = item.querySelector('a');
+            const submenu = item.querySelector('.nav-dropdown');
+
+            if (submenu) {
+                link.classList.add('has-submenu');
+                link.addEventListener('click', (e) => {
+                    // On mobile, prevent navigation and toggle submenu
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        item.classList.toggle('expanded');
+                    }
+                });
+            }
+        });
+
+        // Close submenus on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navItems.forEach(item => {
+                    item.classList.remove('expanded');
+                });
+            }
+        });
+
+        // Carousel functionality
+        const carousel = {
+            currentSlide: 0,
+            slides: document.querySelectorAll('.carousel-slide'),
+            dots: document.querySelectorAll('.carousel-dot'),
+
+            init() {
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+                this.autoSlide();
+            },
+
+            showSlide(n) {
+                this.slides.forEach(slide => slide.classList.remove('active'));
+                this.dots.forEach(dot => dot.classList.remove('active'));
+                this.slides[n].classList.add('active');
+                this.dots[n].classList.add('active');
+            },
+
+            goToSlide(n) {
+                this.currentSlide = n;
+                this.showSlide(this.currentSlide);
+            },
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                this.showSlide(this.currentSlide);
+            },
+
+            autoSlide() {
+                setInterval(() => this.nextSlide(), 5000);
+            }
+        };
+
+        carousel.init();
+    </script>
+</body>
+</html>
