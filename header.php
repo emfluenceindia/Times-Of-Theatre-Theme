@@ -25,11 +25,9 @@
 <header id="masthead" class="site-header">
 	<div class="tot-wrap logo-section">
 		<div class="logo">
-			<?php if ( has_custom_logo() ) : ?>
-				<?php the_custom_logo(); ?>
-			<?php else : ?>
-				<a class="site-title" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
-			<?php endif; ?>
+			<a class="logo-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+				<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/timesoftheatre-logo.png' ); ?>" width="387" height="200" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+			</a>
 		</div>
 
 		<?php if ( has_nav_menu( 'social' ) ) : ?>
@@ -72,10 +70,6 @@
 					);
 					?>
 				</nav>
-
-				<div class="site-search">
-					<?php get_search_form(); ?>
-				</div>
 			</div>
 		</div>
 	</div>

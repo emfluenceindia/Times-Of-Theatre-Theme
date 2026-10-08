@@ -82,7 +82,16 @@ class Tot_Nav_Walker extends Walker_Nav_Menu {
 	public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ) {
 		$menu_item = $data_object;
 
+		// Icon classes (fa-*) set in the menu's "CSS Classes" field belong on
+		// the <i>, never on the <li>.
+		$icon      = ( $depth > 0 ) ? timesoftheatre_menu_item_icon( $menu_item ) : '';
 		$classes   = empty( $menu_item->classes ) ? array() : (array) $menu_item->classes;
+		$classes   = array_filter(
+			$classes,
+			static function ( $class_name ) {
+				return 0 !== strpos( (string) $class_name, 'fa-' );
+			}
+		);
 		$classes[] = 'menu-item-' . $menu_item->ID;
 
 		$args        = apply_filters( 'nav_menu_item_args', $args, $menu_item, $depth );
@@ -122,6 +131,9 @@ class Tot_Nav_Walker extends Walker_Nav_Menu {
 			$atts = apply_filters( 'nav_menu_link_attributes', $atts, $menu_item, $args, $depth );
 
 			$item_output  = '<a' . $this->tot_atts( $atts ) . '>';
+			if ( $icon ) {
+				$item_output .= '<i class="' . esc_attr( $icon ) . ' menu-icon" aria-hidden="true"></i>';
+			}
 			$item_output .= '<span>' . $title . '</span>';
 			$item_output .= '</a>';
 		}

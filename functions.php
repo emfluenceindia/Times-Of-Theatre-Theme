@@ -56,29 +56,9 @@ if ( ! function_exists( 'timesoftheatre_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'timesoftheatre_setup' );
 
-/**
- * Registers the footer widget areas.
- */
-function timesoftheatre_widgets_init() {
-	for ( $i = 1; $i <= 4; $i++ ) {
-		register_sidebar(
-			array(
-				/* translators: %d: footer column number. */
-				'name'          => sprintf( esc_html__( 'Footer Column %d', 'timesoftheatre' ), $i ),
-				'id'            => 'footer-' . $i,
-				'description'   => esc_html__( 'Widgets shown in this footer column.', 'timesoftheatre' ),
-				'before_widget' => '<section id="%1$s" class="widget %2$s">',
-				'after_widget'  => '</section>',
-				'before_title'  => '<h4 class="widget-title">',
-				'after_title'   => '</h4>',
-			)
-		);
-	}
-}
-add_action( 'widgets_init', 'timesoftheatre_widgets_init' );
-
 require get_template_directory() . '/inc/class-tot-nav-walker.php';
 require get_template_directory() . '/inc/template-functions.php';
+require get_template_directory() . '/inc/home-images.php';
 
 /**
  * Sets the content width in pixels.
@@ -89,27 +69,40 @@ function timesoftheatre_content_width() {
 add_action( 'after_setup_theme', 'timesoftheatre_content_width', 0 );
 
 /**
+ * Returns a cache-busting version for one of the theme's own assets: the
+ * file's modification time, so browsers reload it whenever it changes.
+ *
+ * @param string $path Path relative to the theme root, with a leading slash.
+ * @return string
+ */
+function timesoftheatre_asset_version( $path ) {
+	$file = get_template_directory() . $path;
+
+	return file_exists( $file ) ? (string) filemtime( $file ) : TIMESOFTHEATRE_VERSION;
+}
+
+/**
  * Enqueues theme styles and scripts.
  */
 function timesoftheatre_scripts() {
 	$assets = get_template_directory_uri() . '/assets';
 
 	wp_enqueue_style( 'timesoftheatre-bootstrap-grid', $assets . '/vendor/bootstrap/bootstrap-grid.min.css', array(), '5.3.8' );
-	wp_enqueue_style( 'timesoftheatre-fontawesome', $assets . '/vendor/fontawesome/all.min.css', array(), '7.3.1' );
+	wp_enqueue_style( 'timesoftheatre-fontawesome', $assets . '/vendor/fontawesome/css/all.min.css', array(), '7.3.1' );
 
 	// style.css only carries the theme header; all styles live in totmain.css.
 	wp_enqueue_style(
 		'timesoftheatre-totmain',
 		$assets . '/css/totmain.css',
 		array( 'timesoftheatre-bootstrap-grid', 'timesoftheatre-fontawesome' ),
-		TIMESOFTHEATRE_VERSION
+		timesoftheatre_asset_version( '/assets/css/totmain.css' )
 	);
 
 	wp_enqueue_script(
 		'timesoftheatre-main',
 		$assets . '/js/main.js',
 		array(),
-		TIMESOFTHEATRE_VERSION,
+		timesoftheatre_asset_version( '/assets/js/main.js' ),
 		array(
 			'in_footer' => true,
 			'strategy'  => 'defer',

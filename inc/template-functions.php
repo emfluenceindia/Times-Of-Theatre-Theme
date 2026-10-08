@@ -10,6 +10,158 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Returns a URL's path with a single trailing slash, for comparisons.
+ *
+ * @param string $url URL.
+ * @return string
+ */
+function timesoftheatre_url_path( $url ) {
+	$path = wp_parse_url( $url, PHP_URL_PATH );
+
+	return trailingslashit( $path ? $path : '/' );
+}
+
+/**
+ * Returns the Font Awesome icon classes for a menu item.
+ *
+ * Icons are set per item in the menu editor's "CSS Classes" field, for
+ * example "fa-solid fa-users". Items without one get a neutral arrow.
+ *
+ * @param WP_Post $item Menu item.
+ * @return string Space-separated Font Awesome classes.
+ */
+function timesoftheatre_menu_item_icon( $item ) {
+	$icon = array();
+
+	foreach ( (array) $item->classes as $class_name ) {
+		if ( is_string( $class_name ) && 0 === strpos( $class_name, 'fa-' ) ) {
+			$icon[] = sanitize_html_class( $class_name );
+		}
+	}
+
+	return $icon ? implode( ' ', $icon ) : 'fa-solid fa-angle-right';
+}
+
+/**
+ * Groups a menu location's items into columns: each top-level item that has
+ * sub-items becomes a column heading with its sub-items listed beneath it.
+ *
+ * @param string $location Registered menu location.
+ * @return array[] Each: array( 'title' => string, 'items' => array of title/url ).
+ */
+function timesoftheatre_menu_groups( $location ) {
+	$locations = get_nav_menu_locations();
+
+	if ( empty( $locations[ $location ] ) ) {
+		return array();
+	}
+
+	$items = wp_get_nav_menu_items( $locations[ $location ] );
+
+	if ( ! $items ) {
+		return array();
+	}
+
+	$groups = array();
+
+	foreach ( $items as $item ) {
+		if ( ! (int) $item->menu_item_parent ) {
+			$groups[ (int) $item->ID ] = array(
+				'title' => $item->title,
+				'items' => array(),
+			);
+		}
+	}
+
+	foreach ( $items as $item ) {
+		$parent = (int) $item->menu_item_parent;
+
+		if ( $parent && isset( $groups[ $parent ] ) ) {
+			$groups[ $parent ]['items'][] = array(
+				'title' => $item->title,
+				'url'   => $item->url,
+				'icon'  => timesoftheatre_menu_item_icon( $item ),
+			);
+		}
+	}
+
+	return array_values(
+		array_filter(
+			$groups,
+			static function ( $group ) {
+				return ! empty( $group['items'] );
+			}
+		)
+	);
+}
+
+/**
+ * Builds the left-hand section menu for the current page.
+ *
+ * The menu is derived from the primary menu: the current page is matched to
+ * the sub-items of one top-level item, and all sub-items of that top-level
+ * item (the "siblings") are listed. Items that point to sections of the
+ * current page keep their #anchor; items that point to other pages are plain
+ * links, with the current page marked.
+ *
+ * @return array Empty when the page is not in a primary-menu sub-menu, else
+ *               array( 'title' => string, 'items' => array of title/url/current ).
+ */
+function timesoftheatre_section_menu() {
+	$locations = get_nav_menu_locations();
+
+	if ( empty( $locations['primary'] ) || ! is_page() ) {
+		return array();
+	}
+
+	$items = wp_get_nav_menu_items( $locations['primary'] );
+
+	if ( ! $items ) {
+		return array();
+	}
+
+	$current   = timesoftheatre_url_path( get_permalink( get_queried_object_id() ) );
+	$parent_id = 0;
+
+	foreach ( $items as $item ) {
+		if ( (int) $item->menu_item_parent && timesoftheatre_url_path( $item->url ) === $current ) {
+			$parent_id = (int) $item->menu_item_parent;
+			break;
+		}
+	}
+
+	if ( ! $parent_id ) {
+		return array();
+	}
+
+	$menu = array(
+		'title' => '',
+		'items' => array(),
+	);
+
+	foreach ( $items as $item ) {
+		if ( (int) $item->ID === $parent_id ) {
+			$menu['title'] = $item->title;
+		}
+
+		if ( (int) $item->menu_item_parent !== $parent_id ) {
+			continue;
+		}
+
+		$has_fragment = (bool) wp_parse_url( $item->url, PHP_URL_FRAGMENT );
+
+		$menu['items'][] = array(
+			'title'   => $item->title,
+			'url'     => $item->url,
+			'icon'    => timesoftheatre_menu_item_icon( $item ),
+			'current' => ! $has_fragment && timesoftheatre_url_path( $item->url ) === $current,
+		);
+	}
+
+	return $menu['items'] ? $menu : array();
+}
+
+/**
  * Returns the permalink of a page by its path, or an empty string.
  *
  * Used for homepage links so a missing page never produces a broken link.

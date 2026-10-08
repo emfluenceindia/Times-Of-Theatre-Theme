@@ -160,7 +160,7 @@
 						}
 					} );
 					pick();
-				}, { rootMargin: '0px 0px -65% 0px', threshold: 0 } );
+				}, { rootMargin: '-30% 0px -69% 0px', threshold: 0 } );
 
 				targets.forEach( function ( entry ) {
 					observer.observe( entry.target );

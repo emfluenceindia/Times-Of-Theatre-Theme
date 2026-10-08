@@ -2,31 +2,31 @@
 /**
  * The footer template.
  *
- * Footer widget columns, optional footer menu, copyright and wp_footer().
+ * Footer navigation columns (one per primary-menu group), optional footer
+ * menu, copyright and wp_footer().
  *
  * @package timesoftheatre
  */
 
-$timesoftheatre_columns = array();
-
-for ( $timesoftheatre_i = 1; $timesoftheatre_i <= 4; $timesoftheatre_i++ ) {
-	if ( is_active_sidebar( 'footer-' . $timesoftheatre_i ) ) {
-		$timesoftheatre_columns[] = 'footer-' . $timesoftheatre_i;
-	}
-}
+$timesoftheatre_groups = timesoftheatre_menu_groups( 'primary' );
 ?>
 
 <footer id="colophon" class="site-footer">
 	<div class="tot-wrap">
 
-		<?php if ( $timesoftheatre_columns ) : ?>
-			<div class="footer-content">
-				<?php foreach ( $timesoftheatre_columns as $timesoftheatre_sidebar ) : ?>
+		<?php if ( $timesoftheatre_groups ) : ?>
+			<nav class="footer-content" aria-label="<?php esc_attr_e( 'Site map', 'timesoftheatre' ); ?>">
+				<?php foreach ( $timesoftheatre_groups as $timesoftheatre_group ) : ?>
 					<div class="footer-section">
-						<?php dynamic_sidebar( $timesoftheatre_sidebar ); ?>
+						<h2 class="footer-heading"><?php echo esc_html( $timesoftheatre_group['title'] ); ?></h2>
+						<ul>
+							<?php foreach ( $timesoftheatre_group['items'] as $timesoftheatre_link ) : ?>
+								<li><a href="<?php echo esc_url( $timesoftheatre_link['url'] ); ?>"><i class="<?php echo esc_attr( $timesoftheatre_link['icon'] ); ?> menu-icon" aria-hidden="true"></i><span><?php echo esc_html( $timesoftheatre_link['title'] ); ?></span></a></li>
+							<?php endforeach; ?>
+						</ul>
 					</div>
 				<?php endforeach; ?>
-			</div>
+			</nav>
 		<?php endif; ?>
 
 		<div class="footer-bottom">
