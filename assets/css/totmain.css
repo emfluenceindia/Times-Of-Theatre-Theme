@@ -1162,6 +1162,57 @@ a.featured-card:hover .card-link {
 	--bs-gutter-y: 0;
 }
 
+/* Breadcrumb trail (see inc/breadcrumb.php). */
+.breadcrumb {
+	margin-bottom: 1rem;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+}
+
+.breadcrumb ol {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.25rem 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.breadcrumb li {
+	display: inline-flex;
+	align-items: center;
+	color: var(--tot-text-soft);
+}
+
+.breadcrumb li + li::before {
+	content: "\f105"; /* fa-angle-right */
+	margin: 0 0.6rem;
+	color: var(--tot-gold-dark);
+	font-family: "Font Awesome 7 Free";
+	font-size: 0.7rem;
+	font-weight: 900;
+	-webkit-font-smoothing: antialiased;
+}
+
+.breadcrumb a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	color: var(--tot-heading);
+	text-decoration: none;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus-visible {
+	text-decoration: underline;
+}
+
+.breadcrumb [aria-current="page"] {
+	color: var(--tot-text);
+	font-weight: 600;
+}
+
 /* Mobile: reserve a gutter for the fixed drawer tab so it never covers text. */
 .page-layout--with-nav {
 	padding-left: 2.25rem;
@@ -1215,6 +1266,20 @@ a.featured-card:hover .card-link {
 	padding-bottom: 0.4rem;
 	border-bottom: 3px solid var(--tot-gold);
 	display: inline-block;
+}
+
+/* Heading prefixed with its section-menu icon (see timesoftheatre_section_heading_icon()). */
+.page-content .has-section-icon {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.section-heading-icon {
+	flex: 0 0 auto;
+	color: #8c4228;
+	background: none;
+	font-size: 0.9em;
 }
 
 /* Paragraphs in page content: 14px text on a 30px line. */
@@ -1422,6 +1487,129 @@ a.featured-card:hover .card-link {
 		background: var(--tot-bg);
 		color: var(--tot-gold-dark);
 	}
+}
+
+/* ==========================================================================
+   CTA buttons: a Buttons block with the "tot-cta" class (flat, square,
+   all-caps, trailing arrow); used to jump to the enquiry form
+   ========================================================================== */
+.tot-cta {
+	margin-top: 1rem;
+}
+
+.tot-cta .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.55rem 1rem;
+	border: 0;
+	border-radius: 0;
+	background-color: var(--tot-heading);
+	box-shadow: none;
+	color: var(--tot-white);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	line-height: 1.4;
+	text-transform: uppercase;
+	transition: background-color 0.15s ease-in-out;
+}
+
+/* Small arrow after the label. */
+.tot-cta .wp-block-button__link::after {
+	content: "\f061"; /* fa-arrow-right */
+	font-family: "Font Awesome 7 Free";
+	font-weight: 900;
+	font-size: 0.7rem;
+	-webkit-font-smoothing: antialiased;
+}
+
+.tot-cta .wp-block-button__link:hover,
+.tot-cta .wp-block-button__link:focus-visible {
+	background-color: var(--tot-dark-alt);
+	color: var(--tot-white);
+}
+
+.tot-cta .wp-block-button__link:focus-visible {
+	outline: 2px solid var(--tot-gold);
+	outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Forms (Fluent Forms): fields with an icon block, see inc/fluentform.php
+   ========================================================================== */
+.fluentform .ff-el-input--label label {
+	color: var(--tot-text);
+	font-size: 0.8125rem;
+	font-weight: 400;
+}
+
+.tot-ff-control {
+	--tot-ff-icon-width: 2.75rem;
+	--tot-ff-border: #ccc;
+
+	display: flex;
+	align-items: stretch;
+	border: 1px solid var(--tot-ff-border);
+	border-radius: 0;
+	background: var(--tot-white);
+	overflow: hidden;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.tot-ff-control:focus-within {
+	border-color: var(--tot-gold-dark);
+	box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25);
+}
+
+.fluentform .ff-el-is-error .tot-ff-control {
+	border-color: var(--fluentform-danger, #f56c6c);
+}
+
+/* Every icon block is the same width, whatever the icon or field type. */
+.tot-ff-control__icon {
+	flex: 0 0 var(--tot-ff-icon-width);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--tot-ff-icon-width);
+	border-right: 1px solid var(--tot-ff-border);
+	background: var(--tot-yellow-light);
+	color: var(--tot-dark-alt);
+	font-size: 0.875rem;
+}
+
+/* Textareas: keep the icon level with the first line of text. */
+.tot-ff-control:has(textarea) .tot-ff-control__icon {
+	align-items: flex-start;
+	padding-top: 0.8rem;
+}
+
+.fluentform .ff-el-group .tot-ff-control .ff-el-form-control {
+	flex: 1 1 auto;
+	min-width: 0;
+	width: auto;
+	border: 0;
+	border-radius: 0;
+	background-color: var(--tot-white);
+	box-shadow: none;
+	color: var(--tot-text);
+	font-size: 0.875rem;
+	font-weight: 400;
+}
+
+.fluentform .ff-el-group .tot-ff-control textarea.ff-el-form-control {
+	line-height: 1.5;
+	resize: vertical;
+}
+
+/* Submit button: sharp corners, small all-caps label. */
+.fluentform .ff_btn_style.ff-btn-submit {
+	border-radius: 0;
+	font-size: 0.8125rem;
+	font-weight: 400;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 }
 
 /* ==========================================================================

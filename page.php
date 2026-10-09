@@ -16,6 +16,8 @@ $timesoftheatre_menu = timesoftheatre_section_menu();
 
 <main id="primary" class="site-main">
 	<div class="tot-wrap page-layout<?php echo $timesoftheatre_menu ? ' page-layout--with-nav' : ''; ?>">
+		<?php timesoftheatre_breadcrumb(); ?>
+
 		<?php
 		while ( have_posts() ) :
 			the_post();

@@ -162,6 +162,62 @@ function timesoftheatre_section_menu() {
 }
 
 /**
+ * Prefixes a content section's heading with the icon of the section-menu
+ * item that links to it, so the heading and the left-hand menu match.
+ *
+ * Applies to Group blocks with an anchor (HTML anchor "facilities" matches a
+ * menu item linking to "this-page/#facilities"); only the first h2 in the
+ * group gets the icon.
+ *
+ * @param string $block_content Rendered block.
+ * @param array  $block         Parsed block.
+ * @return string
+ */
+function timesoftheatre_section_heading_icon( $block_content, $block ) {
+	static $icons = null;
+
+	if ( 'core/group' !== $block['blockName'] || empty( $block['attrs']['anchor'] ) || ! is_page() || ! in_the_loop() ) {
+		return $block_content;
+	}
+
+	if ( null === $icons ) {
+		$icons   = array();
+		$menu    = timesoftheatre_section_menu();
+		$current = timesoftheatre_url_path( get_permalink( get_queried_object_id() ) );
+
+		foreach ( $menu ? $menu['items'] : array() as $item ) {
+			$fragment = wp_parse_url( $item['url'], PHP_URL_FRAGMENT );
+
+			if ( $fragment && timesoftheatre_url_path( $item['url'] ) === $current ) {
+				$icons[ $fragment ] = $item['icon'];
+			}
+		}
+	}
+
+	$anchor = $block['attrs']['anchor'];
+
+	if ( empty( $icons[ $anchor ] ) ) {
+		return $block_content;
+	}
+
+	$icon = '<i class="' . esc_attr( $icons[ $anchor ] ) . ' section-heading-icon" aria-hidden="true"></i>';
+
+	return preg_replace_callback(
+		'#<h2\b([^>]*)>#',
+		function ( $matches ) use ( $icon ) {
+			$attrs = preg_match( '#\bclass="#', $matches[1] )
+				? preg_replace( '#\bclass="#', 'class="has-section-icon ', $matches[1], 1 )
+				: $matches[1] . ' class="has-section-icon"';
+
+			return '<h2' . $attrs . '>' . $icon;
+		},
+		$block_content,
+		1
+	);
+}
+add_filter( 'render_block', 'timesoftheatre_section_heading_icon', 10, 2 );
+
+/**
  * Returns the permalink of a page by its path, or an empty string.
  *
  * Used for homepage links so a missing page never produces a broken link.

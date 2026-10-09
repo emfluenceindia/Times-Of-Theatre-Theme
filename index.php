@@ -12,6 +12,8 @@ get_header();
 
 <main id="primary" class="site-main container">
 
+	<?php timesoftheatre_breadcrumb(); ?>
+
 	<?php if ( have_posts() ) : ?>
 
 		<?php if ( is_home() && ! is_front_page() ) : ?>

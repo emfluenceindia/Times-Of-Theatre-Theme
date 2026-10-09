@@ -59,6 +59,8 @@ add_action( 'after_setup_theme', 'timesoftheatre_setup' );
 require get_template_directory() . '/inc/class-tot-nav-walker.php';
 require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/home-images.php';
+require get_template_directory() . '/inc/breadcrumb.php';
+require get_template_directory() . '/inc/fluentform.php';
 
 /**
  * Sets the content width in pixels.
